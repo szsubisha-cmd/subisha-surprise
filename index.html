@@ -1,142 +1,156 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>For My Forever Love ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Quiz For My Forever ❤️</title>
 
     <style>
         body {
             margin: 0;
-            text-align: center;
             font-family: Arial, sans-serif;
             background: linear-gradient(to right, #ff758c, #ff7eb3);
             color: white;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
         }
 
         h1 {
-            margin-top: 80px;
-            font-size: 50px;
+            font-size: 7vw;
         }
 
-        #typing {
-            font-size: 22px;
-            margin-top: 20px;
-            min-height: 40px;
+        .question {
+            margin: 20px 0;
+            font-size: 5vw;
+        }
+
+        input {
+            padding: 10px;
+            width: 90%;
+            border-radius: 8px;
+            border: none;
+            margin-top: 10px;
+            font-size: 4vw;
+            text-align: center;
         }
 
         button {
-            padding: 15px 30px;
-            font-size: 18px;
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 4.5vw;
             border: none;
             border-radius: 10px;
-            background-color: white;
+            background: white;
             color: #ff4e7a;
             cursor: pointer;
-            margin: 15px;
-            transition: 0.3s;
         }
 
-        button:hover {
-            transform: scale(1.1);
-        }
-
-        #message {
+        #secret {
             display: none;
-            margin-top: 20px;
-            font-size: 24px;
+            margin-top: 30px;
+            font-size: 5vw;
             font-weight: bold;
         }
 
-        .heart {
-            position: fixed;
-            top: -10px;
-            font-size: 24px;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
+        @media (min-width: 768px) {
+            h1 { font-size: 32px; }
+            .question { font-size: 20px; }
+            input { font-size: 16px; }
+            button { font-size: 18px; }
+            #secret { font-size: 22px; }
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Hey My Love ❤️</h1>
+<div class="container">
 
-    <p id="typing"></p>
+    <h1>Love Quiz 💕</h1>
 
-    <button onclick="startSurprise()">Click For Surprise 💌</button>
-
-    <div id="proposal" style="display:none;">
-        <h2>Will you be mine forever? 💍</h2>
-        <button onclick="yes()">Yes ❤️</button>
-        <button onmouseover="moveButton(this)">No 😜</button>
+    <div class="question">
+        1️⃣ What is my favorite color? ❤️
+        <br>
+        <input type="text" id="q1" placeholder="Type your answer">
     </div>
 
-    <div id="message">
-        You are my happiness, my peace, and my forever person ❤️✨
+    <div class="question">
+        2️⃣ What is our special date? 💍
+        <br>
+        <input type="text" id="q2" placeholder="DD/MM">
     </div>
 
-    <!-- Add your romantic mp3 file in same folder -->
-    <audio id="bgMusic" src="music.mp3"></audio>
+    <div class="question">
+        3️⃣ What nickname do I call you? 😘
+        <br>
+        <input type="text" id="q3" placeholder="Type your answer">
+    </div>
+
+    <button onclick="checkAnswers()">Unlock Secret 💌</button>
+
+    <div id="secret">
+        🎉 You passed the test! 🎉 <br><br>
+        You truly know me and own my heart forever ❤️✨ <br><br>
+        I love you more than words can explain 💖
+    </div>
+
+</div>
 
 <script>
 
-    // Typing Effect
-    let text = "You are the best thing that ever happened to me ❤️";
-    let i = 0;
+function checkAnswers() {
 
-    function typeEffect() {
-        if (i < text.length) {
-            document.getElementById("typing").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeEffect, 80);
-        }
-    }
+    let a1 = document.getElementById("q1").value.trim().toLowerCase();
+    let a2 = document.getElementById("q2").value.trim();
+    let a3 = document.getElementById("q3").value.trim().toLowerCase();
 
-    window.onload = typeEffect;
+    // ✨ Change these answers to your real ones
+    let correct1 = "pink";
+    let correct2 = "14/02";
+    let correct3 = "baby";
 
-    // Start Surprise
-    function startSurprise() {
-        document.getElementById("bgMusic").play();
-        document.getElementById("proposal").style.display = "block";
+    if (a1 === correct1 && a2 === correct2 && a3 === correct3) {
+        document.getElementById("secret").style.display = "block";
         createHearts();
+    } else {
+        alert("Oops! Some answers are wrong 😜 Try again my love ❤️");
     }
+}
 
-    // Yes Button
-    function yes() {
-        document.getElementById("message").style.display = "block";
-        createHearts();
+function createHearts() {
+    for (let i = 0; i < 20; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "-10px";
+        heart.style.fontSize = "24px";
+        heart.style.animation = "fall 3s linear forwards";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
     }
-
-    // Moving No Button
-    function moveButton(button) {
-        button.style.position = "absolute";
-        button.style.left = Math.random() * 80 + "vw";
-        button.style.top = Math.random() * 80 + "vh";
-    }
-
-    // Falling Hearts
-    function createHearts() {
-        for (let i = 0; i < 30; i++) {
-            let heart = document.createElement("div");
-            heart.innerHTML = "❤️";
-            heart.className = "heart";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-            document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
-        }
-    }
+}
 
 </script>
+
+<style>
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+</style>
 
 </body>
 </html>
